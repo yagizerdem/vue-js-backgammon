@@ -1,6 +1,8 @@
 <template>
   <div class="table">
-    <div class="container-board" v-show="showBoard"></div>
+    <div class="container-board" v-show="showBoard">
+      <board></board>
+    </div>
     <div class="container-chat">
       <chat></chat>
     </div>
@@ -11,10 +13,12 @@
 import SD from "@/SD";
 import store from "@/store";
 import Chat from "../components/Chat.vue";
+import Board from "../components/Board.vue";
 export default {
   data() {},
   components: {
     chat: Chat,
+    board: Board,
   },
   beforeRouteEnter(to, from, next) {
     if (store._state.data.playerStatus != SD.userStatus.inMatch) {
@@ -37,7 +41,7 @@ export default {
   margin-top: 50px;
 }
 .container-board {
-  width: 500px;
+  width: 550px;
   height: 400px;
   box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
     rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,

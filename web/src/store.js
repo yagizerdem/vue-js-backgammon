@@ -7,6 +7,7 @@ const store = createStore({
       playerStatus: SD.userStatus.inHome,
       board: null,
       chat: [],
+      color: null,
     };
   },
   mutations: {
@@ -19,6 +20,9 @@ const store = createStore({
     pushChat(state, payload) {
       state.chat.push(payload);
     },
+    setColor(state, payload) {
+      state.color = payload;
+    },
   },
   actions: {
     setStatus(context, payload) {
@@ -29,6 +33,9 @@ const store = createStore({
     },
     pushChat(context, payload) {
       context.commit("pushChat", payload);
+    },
+    setColor(context, payload) {
+      context.commit("setColor", payload);
     },
   },
 });

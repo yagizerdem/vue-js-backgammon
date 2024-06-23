@@ -6,6 +6,7 @@ const { getIo } = require("../socket-setup");
 const { createBoard } = require("../util/createBoard");
 const startGame = require("../emitters/startGame");
 const emitBoard = require("../emitters/emitBoard");
+const emitColor = require("../emitters/emitColor");
 var pointer = null;
 const io = getIo();
 function triggerHook() {
@@ -46,6 +47,8 @@ function match() {
   startGame(s2);
   emitBoard(s1, newRoom.board);
   emitBoard(s2, newRoom.board);
+  emitColor(s1, SD.color.white);
+  emitColor(s2, SD.color.black);
 }
 function clearHook() {
   if (db.waitroom.length < 2 && pointer) {

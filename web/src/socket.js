@@ -20,3 +20,6 @@ socket.on("newBoard", (newboard) => {
 socket.on("newChat", (newChatData) => {
   store.dispatch("pushChat", newChatData);
 });
+socket.on("color", (color) => {
+  store.dispatch("setColor", color);
+});
