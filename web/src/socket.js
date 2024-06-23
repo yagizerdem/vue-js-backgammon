@@ -2,6 +2,7 @@ import { io } from "socket.io-client";
 import store from "./store";
 import SD from "./SD";
 import router from "./router";
+import notify from "./helper/notify";
 
 const URL =
   process.env.NODE_ENV === "production" ? undefined : "http://localhost:3000";
@@ -22,4 +23,16 @@ socket.on("newChat", (newChatData) => {
 });
 socket.on("color", (color) => {
   store.dispatch("setColor", color);
+});
+socket.on("error", (message) => {
+  console.log(message);
+  notify(message);
+});
+socket.on("spinDice", (dices) => {
+  store.dispatch("setIsSpinning", true);
+  store.dispatch("setDice", []);
+  setTimeout(() => {
+    store.dispatch("setIsSpinning", false);
+    store.dispatch("setDice", dices);
+  }, 2000);
 });

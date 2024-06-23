@@ -2,7 +2,6 @@
   <div class="arrow-up" v-if="direaction == 'up'">
     <div class="background" :style="{ borderBottomColor: color }"></div>
     <div class="stack">
-      {{ stackNo }}
       <div class="tile" v-for="item in generateTiles.tiles">
         <div v-if="generateTiles.color * 1 == 0" class="white-tile"></div>
         <div v-if="generateTiles.color * 1 == 1" class="black-tile"></div>
@@ -12,7 +11,6 @@
   <div class="arrow-down" v-if="direaction == 'down'">
     <div class="background" :style="{ borderTopColor: color }"></div>
     <div class="stack">
-      {{ stackNo }}
       <div class="tile" v-for="item in generateTiles.tiles">
         <div v-if="generateTiles.color * 1 == 0" class="white-tile"></div>
         <div v-if="generateTiles.color * 1 == 1" class="black-tile"></div>

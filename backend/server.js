@@ -13,6 +13,7 @@ const db = require("./db");
 const registerDisconnectHandler = require("./listeners/disconnect");
 const registerSearchMatchHandler = require("./listeners/searchMatch");
 const registerChatHandler = require("./listeners/chat");
+const registerSpinDiceHandler = require("./listeners/spinDice");
 
 io.on("connection", (socket) => {
   const newUser = new User({
@@ -24,6 +25,7 @@ io.on("connection", (socket) => {
   registerDisconnectHandler(io, socket);
   registerSearchMatchHandler(io, socket);
   registerChatHandler(io, socket);
+  registerSpinDiceHandler(io, socket);
 });
 io.of("/").adapter.on("delete-room", (room) => {
   if (db.gameRoom[room]) {

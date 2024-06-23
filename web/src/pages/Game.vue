@@ -2,6 +2,7 @@
   <div class="table">
     <div class="container-board" v-show="showBoard">
       <board></board>
+      <dice></dice>
     </div>
     <div class="container-chat">
       <chat></chat>
@@ -14,11 +15,13 @@ import SD from "@/SD";
 import store from "@/store";
 import Chat from "../components/Chat.vue";
 import Board from "../components/Board.vue";
+import Dice from "../components/Dice.vue";
 export default {
   data() {},
   components: {
     chat: Chat,
     board: Board,
+    dice: Dice,
   },
   beforeRouteEnter(to, from, next) {
     if (store._state.data.playerStatus != SD.userStatus.inMatch) {

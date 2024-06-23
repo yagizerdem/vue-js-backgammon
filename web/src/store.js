@@ -8,6 +8,8 @@ const store = createStore({
       board: null,
       chat: [],
       color: null,
+      dices: [],
+      isSpinning: false,
     };
   },
   mutations: {
@@ -23,6 +25,15 @@ const store = createStore({
     setColor(state, payload) {
       state.color = payload;
     },
+    setDices(state, payload) {
+      state.dices = payload;
+    },
+    setIsSpinning(state, payload) {
+      state.isSpinning = payload;
+    },
+    setDices(state, payload) {
+      state.dices = payload;
+    },
   },
   actions: {
     setStatus(context, payload) {
@@ -36,6 +47,15 @@ const store = createStore({
     },
     setColor(context, payload) {
       context.commit("setColor", payload);
+    },
+    setDice(context, payload) {
+      context.commit("setDice", payload);
+    },
+    setIsSpinning(context, payload) {
+      context.commit("setIsSpinning", payload);
+    },
+    setDice(context, payload) {
+      context.commit("setDices", payload);
     },
   },
 });
