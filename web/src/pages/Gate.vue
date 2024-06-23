@@ -1,44 +1,96 @@
 <template>
   <div class="center">
-    <h1>backgammon</h1>
-    <hr />
-    <input placeholder="eneter your name" ref="input" />
-    <button @click="findMatch">find match</button>
+    <div v-if="mode == 'home'">
+      <h1>backgammon</h1>
+      <hr />
+      <input placeholder="eneter your name" ref="input" />
+      <button @click="findMatch">find match</button>
+    </div>
+    <div v-if="mode == 'search'" class="search">
+      <div>searching for match ...</div>
+      <br />
+      <spinner></spinner>
+      <br />
+      <button @click="cancelMatch()">cancel</button>
+    </div>
   </div>
 </template>
 
 <script>
+import SD from "@/SD";
+import Spinner from "@/components/Spinner.vue";
+import { socket } from "@/socket";
+
 export default {
+  components: {
+    spinner: Spinner,
+  },
   methods: {
     findMatch() {
       const userName = this.$refs.input.value;
+      this.$store.dispatch("setStatus", SD.userStatus.inSearch);
+      socket.emit("searchMatch", { userName });
+    },
+    cancelMatch() {
+      window.location.reload();
+    },
+  },
+  computed: {
+    mode() {
+      return this.$store._state.data.playerStatus == SD.userStatus.inHome
+        ? "home"
+        : "search";
     },
   },
 };
 </script>
 <style scoped>
+.search {
+  text-align: center;
+  margin: 10px;
+}
+.search > button {
+  width: 100px;
+  height: 30px;
+  display: block;
+  margin: auto;
+  border-radius: 3px;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
+    rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
+    rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+  font-weight: bolder;
+}
 .center {
   width: 200px;
   height: 200px;
-  background-color: white;
+  background-color: #7cb9e8;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   display: flex;
   flex-direction: column;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
+    rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
+    rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
 }
-.center > h1 {
+.center > div > h1 {
   font-size: 20px;
   text-align: center;
   margin: 10px 0;
 }
-.center > hr {
+.center > div > hr {
   width: 80%;
   display: block;
   margin: 0px auto;
 }
-.center > input {
+.center > div > input {
   margin-top: 10px;
   border: none;
   outline: none;
@@ -50,7 +102,7 @@ export default {
   background: #e7eaf6;
   font-weight: bolder;
 }
-.center > input + button {
+.center > div > input + button {
   width: 160px;
   height: 30px;
   display: flex;
